@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Ders Seçimi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container bg-white p-5 rounded shadow my-5">
+    <h2 class="mb-4 text-center">{{ student.name }} - Ders Seçimi</h2>
+
+    <!-- Flash mesajlar -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="mb-3">
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <!-- Ders seçimi formu -->
+    <form method="POST" action="/student/select-course">
+        {% for course in courses %}
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox"
+                       name="course_ids"
+                       value="{{ course.id }}"
+                       id="course{{ course.id }}"
+                       {% if selected_courses and course.id in selected_courses %}checked{% endif %}>
+                <label class="form-check-label" for="course{{ course.id }}">
+                    {{ course.name }}
+                </label>
+            </div>
+        {% endfor %}
+
+        <div class="mt-4">
+            <button type="submit" class="btn btn-primary">💾 Seçilen Dersleri Kaydet</button>
+            <a href="{{ url_for('student_dashboard') }}" class="btn btn-secondary ms-2">↩ Geri Dön</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

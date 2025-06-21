@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin Paneli</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background: #f8f9fa;
+        }
+        .container {
+            margin-top: 60px;
+            max-width: 960px;
+        }
+        h1 {
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #343a40;
+        }
+        .btn-custom {
+            width: 100%;
+            padding: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            transition: background-color 0.3s ease;
+        }
+        .btn-student-add { background-color: #0d6efd; color: white; }
+        .btn-student-delete { background-color: #dc3545; color: white; }
+        .btn-teacher-add { background-color: #198754; color: white; }
+        .btn-teacher-delete { background-color: #fd7e14; color: white; }
+        .btn-course-add { background-color: #6f42c1; color: white; }
+        .btn-course-delete { background-color: #20c997; color: white; }
+        .btn-outline-secondary, .btn-outline-dark {
+            font-weight: 600;
+            padding: 16px;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        .accordion-button:not(.collapsed) {
+            background-color: #e9ecef;
+        }
+        table {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+<div class="container shadow-sm p-4 bg-white rounded">
+    <h1>Admin Paneli</h1>
+
+    <!-- İşlem Butonları -->
+    <div class="row g-3 mb-4">
+        <div class="col-md-6">
+            <button class="btn btn-custom btn-student-add" onclick="location.href='{{ url_for('add_student') }}'">Öğrenci Ekle</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-custom btn-student-delete" onclick="location.href='{{ url_for('delete_student') }}'">Öğrenci Sil</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-custom btn-teacher-add" onclick="location.href='{{ url_for('add_teacher') }}'">Öğretmen Ekle</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-custom btn-teacher-delete" onclick="location.href='{{ url_for('delete_teacher') }}'">Öğretmen Sil</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-custom btn-course-add" onclick="location.href='{{ url_for('add_course') }}'">Ders Ekle</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-custom btn-course-delete" onclick="location.href='{{ url_for('delete_course') }}'">Ders Sil</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-outline-secondary" onclick="location.href='{{ url_for('assign_multiple') }}'">👥 Çoklu Ders Atama</button>
+        </div>
+        <div class="col-md-6">
+            <button class="btn btn-outline-dark" onclick="location.href='{{ url_for('view_assignments') }}'">📘 Derse Göre Öğrenci Listesi</button>
+        </div>
+    </div>
+
+    <!-- Flash Mesajlar -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="mb-3">
+          {% for category, message in messages %}
+            <div class="alert alert-{{ 'success' if category == 'success' else 'danger' }} alert-dismissible fade show" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <!-- Accordion Başlangıcı -->
+    <div class="accordion" id="adminAccordion">
+        <!-- Öğrenciler -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingStudents">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseStudents">
+                    📚 Kayıtlı Öğrenciler
+                </button>
+            </h2>
+            <div id="collapseStudents" class="accordion-collapse collapse show" data-bs-parent="#adminAccordion">
+                <div class="accordion-body">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-primary">
+                            <tr>
+                                <th>Ad Soyad</th>
+                                <th>Okul No</th>
+                                <th>Sınıf</th>
+                                <th>Kullanıcı Adı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for student in students %}
+                                <tr>
+                                    <td>{{ student.name }}</td>
+                                    <td>{{ student.number }}</td>
+                                    <td>{{ student.class }}</td>
+                                    <td>{{ student.username }}</td>
+                                </tr>
+                            {% else %}
+                                <tr><td colspan="4" class="text-center">Öğrenci bulunamadı.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Öğretmenler -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTeachers">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTeachers">
+                    🧑‍🏫 Kayıtlı Öğretmenler
+                </button>
+            </h2>
+            <div id="collapseTeachers" class="accordion-collapse collapse" data-bs-parent="#adminAccordion">
+                <div class="accordion-body">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-success">
+                            <tr>
+                                <th>Ad Soyad</th>
+                                <th>Branş</th>
+                                <th>Kullanıcı Adı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for teacher in teachers %}
+                                <tr>
+                                    <td>{{ teacher.name }}</td>
+                                    <td>{{ teacher.branch }}</td>
+                                    <td>{{ teacher.username }}</td>
+                                </tr>
+                            {% else %}
+                                <tr><td colspan="3" class="text-center">Öğretmen bulunamadı.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dersler -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingCourses">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCourses">
+                    📘 Kayıtlı Dersler
+                </button>
+            </h2>
+            <div id="collapseCourses" class="accordion-collapse collapse" data-bs-parent="#adminAccordion">
+                <div class="accordion-body">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-warning">
+                            <tr>
+                                <th>Ders Adı</th>
+                                <th>Öğretmen Kullanıcı Adı</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for course in courses %}
+                                <tr>
+                                    <td>{{ course.course_name }}</td>
+                                    <td>{{ course.teacher_username }}</td>
+                                </tr>
+                            {% else %}
+                                <tr><td colspan="2" class="text-center">Ders bulunamadı.</td></tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Derse Göre Öğrenci Listesi -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingAssignments">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAssignments">
+                    📋 Derse Göre Öğrenci Listesi
+                </button>
+            </h2>
+            <div id="collapseAssignments" class="accordion-collapse collapse" data-bs-parent="#adminAccordion">
+                <div class="accordion-body text-center">
+                    <a href="{{ url_for('view_assignments') }}" class="btn btn-outline-dark">Görüntüle</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Çoklu Ders Atama -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="headingMultipleAssign">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMultipleAssign">
+                    👥 Çoklu Ders Atama
+                </button>
+            </h2>
+            <div id="collapseMultipleAssign" class="accordion-collapse collapse" data-bs-parent="#adminAccordion">
+                <div class="accordion-body text-center">
+                    <a href="{{ url_for('assign_multiple') }}" class="btn btn-outline-secondary">Atama Sayfası</a>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- Accordion Bitiş -->
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

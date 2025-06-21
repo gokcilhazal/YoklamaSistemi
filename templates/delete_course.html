@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ders Sil</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background: linear-gradient(to right, #f8f9fa, #e0f7fa);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #dc3545;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .form-label {
+            font-weight: 600;
+        }
+
+        .form-select {
+            border-radius: 12px;
+        }
+
+        .btn-danger {
+            width: 100%;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .btn-secondary {
+            margin-top: 15px;
+            width: 100%;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2>📕 Ders Sil</h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="course_id" class="form-label">Silinecek Dersi Seçin</label>
+                <select class="form-select" id="course_id" name="course_id" required>
+                    {% for course in courses %}
+                        <option value="{{ course.id }}">{{ course.course_name }} ({{ course.teacher_username }})</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button type="submit" class="btn btn-danger">🗑️ Sil</button>
+            <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">⬅️ Geri Dön</a>
+        </form>
+    </div>
+
+</body>
+</html>

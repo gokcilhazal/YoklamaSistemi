@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Giriş Yap</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #003366;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 40px;
+        }
+
+        .header img {
+            width: 80px;
+            height: 80px;
+            margin-right: 20px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            text-align: center;
+            color: #FFD700; /* Altın sarısı */
+        }
+
+        .overlay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .login-box {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 35px 45px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            margin-top: 20px;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 260px;
+            padding: 12px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 6px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            background-color: #0059b3;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #0073e6;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        <h1>KAHRAMANMARAŞ SÜTÇÜ İMAM ÜNİVERSİTESİ<br>YOKLAMA SİSTEMİ</h1>
+    </div>
+
+    <div class="overlay">
+        <div class="login-box">
+            <form action="/login" method="POST">
+                <input type="text" name="username" placeholder="Kullanıcı Adı" required><br>
+                <input type="password" name="password" placeholder="Şifre" required><br>
+                <button type="submit">Giriş</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

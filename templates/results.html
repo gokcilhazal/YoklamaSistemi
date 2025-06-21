@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yoklama Sonuçları</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Yoklamaya Katılanlar</h2>
+    <ul>
+      {% for student in students %}
+        <li>{{ student }}</li>
+      {% endfor %}
+    </ul>
+    <a href="/dashboard">← Geri Dön</a>
+  </div>
+</body>
+</html>

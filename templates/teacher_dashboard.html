@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Öğretmen Paneli</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: linear-gradient(to bottom right, #e0f2fe, #f0f9ff);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .panel-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 40px 35px;
+            max-width: 600px;
+            width: 100%;
+            text-align: center;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .panel-card h2 {
+            font-weight: bold;
+            color: #3b82f6;
+            margin-bottom: 10px;
+        }
+
+        .panel-card p {
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 20px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            font-size: 1rem;
+        }
+
+        .btn-custom {
+            margin-top: 20px;
+            padding: 12px;
+            width: 100%;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background-color: #3b82f6;
+            border: none;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+
+        .btn-secondary {
+            background-color: #10b981;
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary:hover {
+            background-color: #059669;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: #6b7280;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 15px;
+        }
+
+        .btn-outline:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<!-- ... önceki HEAD içeriği aynı kalıyor ... -->
+<body>
+    <div class="panel-card">
+        <h2><i class="fa-solid fa-user-tie me-2"></i>Öğretmen Paneli</h2>
+        <p>Hoş geldiniz, <strong>{{ teacher_name }}</strong></p>
+
+        <h5 class="mt-4 mb-2 text-primary"><i class="fa-solid fa-book-open-reader me-2"></i>Ders Seçin</h5>
+        <form method="POST" action="{{ url_for('start_attendance') }}">
+            <select name="course_id" required>
+                {% for course in courses %}
+                    <option value="{{ course.id }}">{{ course.name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary btn-custom">
+                <i class="fa-solid fa-clipboard-check me-2"></i>Yoklama Başlat
+            </button>
+        </form>
+
+        <!-- Yoklama Listesi Butonu -->
+        <a href="{{ url_for('attendance_list') }}" class="btn btn-secondary btn-custom mt-2">
+            <i class="fa-solid fa-table-list me-2"></i>Yoklama Listesi
+        </a>
+
+        <!-- Devamsızlık Özeti Butonu -->
+        
+        <a href="{{ url_for('absentee_summary') }}" class="btn btn-outline-danger mt-3 w-100">
+    📉 Devamsızlık Özeti
+</a>
+
+
+        <!-- Çıkış -->
+        <a href="/" class="btn-outline"><i class="fa-solid fa-arrow-left me-1"></i> Çıkış Yap</a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+
+</html>

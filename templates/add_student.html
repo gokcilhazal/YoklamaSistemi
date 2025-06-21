@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Öğrenci Ekle</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+    <!-- Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            font-family: 'Poppins', sans-serif;
+            color: #333;
+            padding: 30px;
+        }
+        .form-container {
+            background: #fff;
+            padding: 30px 35px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            max-width: 480px;
+            margin: auto;
+            animation: fadeIn 0.7s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        h2 {
+            text-align: center;
+            font-weight: 600;
+            color: #4a90e2;
+            margin-bottom: 30px;
+        }
+        h2 i {
+            color: #4a90e2;
+            margin-right: 10px;
+        }
+        label {
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px 14px;
+            margin-bottom: 18px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.25s ease;
+        }
+        input:focus, select:focus {
+            border-color: #4a90e2;
+            box-shadow: 0 0 8px rgba(74, 144, 226, 0.3);
+            outline: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4a90e2, #357ABD);
+            border: none;
+            font-weight: 600;
+            font-size: 16px;
+            border-radius: 10px;
+            padding: 12px 0;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #357ABD, #2b6cb0);
+        }
+        .btn-secondary {
+            background: #6c757d;
+            border: none;
+            font-weight: 500;
+            font-size: 15px;
+            border-radius: 10px;
+            padding: 10px 0;
+        }
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container form-container">
+        <h2><i class="bi bi-person-plus-fill"></i>Öğrenci Kayıt</h2>
+     <form method="POST" action="/register_student">
+    <div class="mb-3">
+        <label for="number" class="form-label">Öğrenci Numarası</label>
+        <input type="text" class="form-control" id="number" name="number" required />
+    </div>
+    <div class="mb-3">
+        <label for="name" class="form-label">Ad Soyad</label>
+        <input type="text" class="form-control" id="name" name="name" required />
+    </div>
+    <div class="mb-3">
+        <label for="username" class="form-label">Kullanıcı Adı</label>
+        <input type="text" class="form-control" id="username" name="username" required />
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Şifre</label>
+        <input type="password" class="form-control" id="password" name="password" required />
+    </div>
+    <div class="mb-3">
+        <label for="class_level" class="form-label">Sınıf</label>
+        <select class="form-select" id="class_level" name="class" required>
+            <option value="1">1. Sınıf</option>
+            <option value="2">2. Sınıf</option>
+            <option value="3">3. Sınıf</option>
+            <option value="4">4. Sınıf</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="registration_year" class="form-label">Kayıt Yılı</label>
+        <input type="number" class="form-control" id="registration_year" name="registration_year" required />
+    </div>
+    <div class="mb-3">
+        <label for="birth_date" class="form-label">Doğum Yılı</label>
+        <input type="number" class="form-control" id="birth_date" name="birth_date" required />
+    </div>
+    <div class="d-grid gap-2">
+        <button type="submit" class="btn btn-primary">Kayıt Ol</button>
+        <a href="{{ url_for('admin_dashboard') }}" class="btn btn-secondary">Geri Dön</a>
+    </div>
+</form>
+
+    </div>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

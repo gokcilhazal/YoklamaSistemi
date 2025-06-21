@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Ders Ekle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #f0f8ff, #d9e4f5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .card {
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            background: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        h2 {
+            text-align: center;
+            color: #0056b3;
+            font-weight: bold;
+            margin-bottom: 30px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-control {
+            border-radius: 12px;
+            box-shadow: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.4);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            border: none;
+            padding: 10px 16px;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 10px;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0056b3, #003f7f);
+        }
+
+        select.form-control {
+            background-color: #f9f9f9;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <h2><i class="fas fa-book-open me-2"></i>Yeni Ders Ekle</h2>
+        <form method="POST">
+            <div class="mb-3">
+                <label for="name" class="form-label">📚 Ders Adı</label>
+                <input type="text" class="form-control" name="name" placeholder="Örn: Matematik" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="teacher" class="form-label">👨‍🏫 Öğretmen Kullanıcı Adı</label>
+                <input type="text" class="form-control" name="teacher" placeholder="Örn: ahmet.hoca" required />
+            </div>
+
+            <div class="mb-3">
+                <label for="class" class="form-label">🏫 Sınıf Seç</label>
+                <select class="form-control" name="class" required>
+                    <option value="" disabled selected>Sınıf seçiniz...</option>
+                    <option value="EO-Z-6">EO-Z-6</option>
+                    <option value="ED-Z2">ED-Z-2</option>
+                    <option value="ED-B1-3">ED-B1-3</option>
+                    <option value="ED-B1-4">ED-B1-4</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">💾 Kaydet</button>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yoklama Paneli</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h2>Yüz Tanıma ile Yoklama</h2>
+    <form method="POST" action="/start-attendance">
+      <button type="submit">Yoklamayı Başlat</button>
+    </form>
+  </div>
+</body>
+</html>
